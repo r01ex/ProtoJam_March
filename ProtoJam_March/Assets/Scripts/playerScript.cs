@@ -29,6 +29,7 @@ public class playerScript : MonoBehaviour
     public bool isholdingBox = false;
     [SerializeField] GameObject pickupBoxPrefab;
     [SerializeField] Transform dropPos;
+    [SerializeField] float throwPower;
 
     public static playerScript Instance { get; private set; }
     public bool isAbilityActive { get; private set; }
@@ -52,8 +53,11 @@ public class playerScript : MonoBehaviour
     }
     public void dropBox()
     {
-        GameObject box = Instantiate(pickupBoxPrefab, dropPos.position, Quaternion.identity);
-        //box.GetComponent<Rigidbody2D>().AddRelativeForce(transform.forward*throwForce);
+        //GameObject box = Instantiate(pickupBoxPrefab, dropPos.position, Quaternion.identity); //떨구기
+
+        GameObject box = Instantiate(pickupBoxPrefab, dropPos.position, Quaternion.identity); //던지기
+        box.GetComponent<Rigidbody2D>().velocity = new Vector2(3*this.transform.localScale.x, 1) * throwPower; //던지기
+
         box.GetComponent<pickupBox>().init();
         isholdingBox = false;
     }
@@ -70,7 +74,7 @@ public class playerScript : MonoBehaviour
         if (spikehitRecent == false)
         {
             if (Input.GetKeyDown(KeyCode.W) && coyoteTimeCounter > 0)
-            { 
+            {
                 jumpedtime = Time.time;
                 rbody.velocity = new Vector2(rbody.velocity.x, baseJumpVelocity);
                 longJump = true;
@@ -112,65 +116,53 @@ public class playerScript : MonoBehaviour
         {
             Turn(direction > 0);
         }
-        /*
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            if (remainingAbilityTime >= 0)
-            {
-                onAbilityActive.Invoke();
-            }
-        }
-        if(Input.GetKey(KeyCode.Space))
-        {
-            if(remainingAbilityTime>=0)
-            {
-                remainingAbilityTime -= Time.deltaTime;
-                isAbilityActive = true;
-            }
-            else
-            {
-                isAbilityActive = false;
-            }
-        }
-        if(Input.GetKeyUp(KeyCode.Space))
-        {
-            isAbilityActive = false;
-            onAbilityDeactive.Invoke();
-        }
-        */
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (remainingAbilityTime >= 0)
-            {
-                onAbilityActive.Invoke();
-            }
-        }
-        if (Input.GetMouseButton(0))
-        {
-            if (remainingAbilityTime >= 0)
-            {
-                remainingAbilityTime -= Time.deltaTime;
-                isAbilityActive = true;
-            }
-            else
-            {
-                isAbilityActive = false;
-            }
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            isAbilityActive = false;
-            onAbilityDeactive.Invoke();
-        }
-
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            dropBox();
+            if (isAbilityActive == false)
+            {
+                if (remainingAbilityTime >= 0)
+                {
+                    onAbilityActive.Invoke();
+                    //ability bar effect
+                    //backgrond, char effect
+                    isAbilityActive = true;
+                }
+            }
+            else
+            {
+                //ability bar effect
+                //backgrond, char effect
+                isAbilityActive = false;
+                onAbilityDeactive.Invoke();
+            }
+        }
+        if (isAbilityActive == true)
+        {
+            if (remainingAbilityTime >= 0)
+            {
+                remainingAbilityTime -= Time.deltaTime;
+                isAbilityActive = true;
+            }
+            else
+            {
+                //ability bar effect
+                //backgrond, char effect
+                onAbilityDeactive.Invoke();
+                isAbilityActive = false;
+            }
+        }
+
+        if (isholdingBox == true)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                dropBox();
+            }
         }
 
     }
+
     private void FixedUpdate()
     {
         if (spikehitRecent == false)
