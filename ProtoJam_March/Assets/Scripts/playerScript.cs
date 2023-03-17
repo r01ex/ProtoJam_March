@@ -49,7 +49,9 @@ public class playerScript : MonoBehaviour
     }
     public bool isOnGround()
     {
-        return legcollider.IsTouchingLayers(groundLayer);
+        bool isTouchingGround = legcollider.IsTouchingLayers(groundLayer);
+        this.GetComponent<Animator>().SetBool("isOnGround", isTouchingGround);
+        return isTouchingGround;
     }
     public void dropBox()
     {
@@ -92,30 +94,36 @@ public class playerScript : MonoBehaviour
         }
         if (rbody.velocity.y < 0)
         {
+            this.GetComponent<Animator>().SetFloat("playerYvelocity", rbody.velocity.y);
             rbody.gravityScale = defaultgrav * gravityMult;
         }
         else
         {
+            this.GetComponent<Animator>().SetFloat("playerYvelocity", rbody.velocity.y);
             rbody.gravityScale = defaultgrav;
         }
 
 
         if (Input.GetKey(KeyCode.A))
         {
+            this.GetComponent<Animator>().SetBool("isWalking", true);           
             direction = -1;
         }
         else if (Input.GetKey(KeyCode.D))
         {
+            this.GetComponent<Animator>().SetBool("isWalking", true);
             direction = 1;
         }
         else
         {
+            this.GetComponent<Animator>().SetBool("isWalking", false);
             direction = 0;
         }
         if (direction != 0)
         {
             Turn(direction > 0);
         }
+
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
