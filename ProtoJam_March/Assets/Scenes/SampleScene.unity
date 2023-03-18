@@ -1463,6 +1463,7 @@ GameObject:
   - component: {fileID: 1183930806}
   - component: {fileID: 1183930807}
   - component: {fileID: 1183930809}
+  - component: {fileID: 1183930810}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1652,6 +1653,21 @@ PolygonCollider2D:
       - {x: 0.06048694, y: -0.039364133}
       - {x: 0.065723136, y: -0.030073807}
       - {x: 0.065, y: 0.08}
+--- !u!114 &1183930810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1183930801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b77fc89e1a565864aa13163def797188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghostTrailPrefab: {fileID: 5792855125268082123, guid: e44a44887aee84947be85f8ff528115e, type: 3}
+  trailSpawnCycleTime: 0.3
+  spriteRenderer: {fileID: 1183930802}
 --- !u!1 &1433813468
 GameObject:
   m_ObjectHideFlags: 0

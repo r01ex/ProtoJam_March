@@ -99,7 +99,7 @@ public class playerScript : MonoBehaviour
 
         if (spikehitRecent == false)
         {
-            /*R01ex님의 점프 코드
+            /*
             if (Input.GetKeyDown(KeyCode.W) && coyoteTimeCounter > 0)
             {
                 jumpedtime = Time.time;
