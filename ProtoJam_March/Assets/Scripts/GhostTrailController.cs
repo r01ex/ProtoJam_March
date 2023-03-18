@@ -6,7 +6,7 @@ using UnityEngine;
 public class GhostTrailController : MonoBehaviour
 {
     [SerializeField] GameObject ghostTrailPrefab;
-
+    Coroutine spawner;
     private void Start()
     {
         playerScript.Instance.onAbilityActive.AddListener(onPlayerAbilityOn);
@@ -19,11 +19,11 @@ public class GhostTrailController : MonoBehaviour
     }
     void onPlayerAbilityOn()
     {
-        StartCoroutine(trailSpawner());
+        spawner = StartCoroutine(trailSpawner());
     }
     void onPlayerAbilityOff()
     {
-        StopCoroutine(trailSpawner());
+        StopCoroutine(spawner);
     }
     IEnumerator trailSpawner()
     {
