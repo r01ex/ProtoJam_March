@@ -9,6 +9,7 @@ public class playerScript : MonoBehaviour
     [SerializeField] Collider2D legcollider;
     [SerializeField] LayerMask groundLayer;
 
+    [Space(10)]
     [SerializeField] float runMaxSpeed;
     [SerializeField] float runAccelAmount;
     [SerializeField] float runDeccelAmount;
@@ -16,12 +17,12 @@ public class playerScript : MonoBehaviour
     bool isFacingRight = true;
 
     bool longJump;
-    float defaultgrav;
+    public float defaultgrav;
     [SerializeField] float gravityMult;
     [SerializeField] float jumpPower;
     [SerializeField] float coyoteTime;
     [SerializeField] float baseJumpVelocity;
-    float jumpedtime;
+    float jumpedtime;   //점프키 누른 타이밍
     public float coyoteTimeCounter;
 
     public bool spikehitRecent = false;
@@ -31,17 +32,21 @@ public class playerScript : MonoBehaviour
     [SerializeField] Transform dropPos;
     [SerializeField] float throwPower;
 
-    public static playerScript Instance { get; private set; }
+
     public bool isAbilityActive { get; private set; }
     public float remainingAbilityTime;
     public UnityEvent onAbilityActive;
     public UnityEvent onAbilityDeactive;
 
+    #region Singleton
+    public static playerScript Instance { get; private set; }
     private void Awake()
     {
         if (Instance == null) { Instance = this; }
         else { Destroy(gameObject); }
     }
+    #endregion
+    
     void Start()
     {
         rbody = this.GetComponent<Rigidbody2D>();
@@ -55,10 +60,10 @@ public class playerScript : MonoBehaviour
     }
     public void dropBox()
     {
-        //GameObject box = Instantiate(pickupBoxPrefab, dropPos.position, Quaternion.identity); //������
+        //GameObject box = Instantiate(pickupBoxPrefab, dropPos.position, Quaternion.identity); //떨구기
 
-        GameObject box = Instantiate(pickupBoxPrefab, dropPos.position, Quaternion.identity); //������
-        box.GetComponent<Rigidbody2D>().velocity = new Vector2(3*this.transform.localScale.x, 1) * throwPower; //������
+        GameObject box = Instantiate(pickupBoxPrefab, dropPos.position, Quaternion.identity); //던지기
+        box.GetComponent<Rigidbody2D>().velocity = new Vector2(3*this.transform.localScale.x, 1) * throwPower; //던지기
 
         box.GetComponent<pickupBox>().init();
         isholdingBox = false;
@@ -86,7 +91,7 @@ public class playerScript : MonoBehaviour
             {
                 rbody.AddForce(new Vector2(0, Time.deltaTime * jumpPower));
             }
-            if (Input.GetKeyUp(KeyCode.W) || (longJump == true && Time.time - jumpedtime >= 0.2f))
+            if (Input.GetKeyUp(KeyCode.W) || (longJump == true && Time.time - jumpedtime >= 0.2f))  //0.2f 값은 착지-재점프 까지의 딜레이?
             {
                 longJump = false;
                 coyoteTimeCounter = 0;
@@ -103,7 +108,7 @@ public class playerScript : MonoBehaviour
             rbody.gravityScale = defaultgrav;
         }
 
-
+        //좌-우 이동 + 애니메이션 처리
         if (Input.GetKey(KeyCode.A))
         {
             this.GetComponent<Animator>().SetBool("isWalking", true);           
