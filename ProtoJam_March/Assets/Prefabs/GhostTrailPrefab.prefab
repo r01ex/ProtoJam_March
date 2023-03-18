@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5792855125268082126}
   - component: {fileID: 5792855125268082125}
-  - component: {fileID: 5792855125268082124}
+  - component: {fileID: 1395160985354570071}
+  - component: {fileID: 8034095179977251224}
   m_Layer: 0
   m_Name: GhostTrailPrefab
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.20518868, g: 0.6229931, b: 0.8207547, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -85,7 +86,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5792855125268082124
+--- !u!95 &1395160985354570071
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5792855125268082123}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b5391758a0d04cd40a0627e6ba7aa240, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8034095179977251224
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,9 +115,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5792855125268082123}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3893dcbcf46ecc840bf76837aa4c4def, type: 3}
+  m_Script: {fileID: 11500000, guid: e14dc2258fd1abe4882d146b3215cc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 0.5
-  color: {r: 0.091916285, g: 0.03123886, b: 0.735849, a: 1}
-  mySpriteRenderer: {fileID: 5792855125268082125}
