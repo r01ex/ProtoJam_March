@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
+
 public class playerScript : MonoBehaviour
 {
     Rigidbody2D rbody;
     [SerializeField] Collider2D legcollider;
     [SerializeField] LayerMask groundLayer;
 
-    [Space(10)]
-    [SerializeField] float runMaxSpeed;
+    [Space(10)] [SerializeField] float runMaxSpeed;
     [SerializeField] float runAccelAmount;
     [SerializeField] float runDeccelAmount;
     int direction;
@@ -22,7 +23,11 @@ public class playerScript : MonoBehaviour
     [SerializeField] float jumpPower;
     [SerializeField] float coyoteTime;
     [SerializeField] float baseJumpVelocity;
-    float jumpedtime;   //점프키 누른 타이밍
+    float jumpedtime; //점프키 누른 타이밍
+    private bool isJumpKeyEnd = false;  //점프키를 땠는가?
+    private float floatedtime;          //공중에 떠있는 시간
+    public float minimumJumpingTime;    //점프시, 최소체공가능시간
+    public float maximumJumpingTime;    //점프시, 최대체공가능시간
     public float coyoteTimeCounter;
 
     public bool spikehitRecent = false;
@@ -39,37 +44,50 @@ public class playerScript : MonoBehaviour
     public UnityEvent onAbilityDeactive;
 
     #region Singleton
+
     public static playerScript Instance { get; private set; }
+
     private void Awake()
     {
-        if (Instance == null) { Instance = this; }
-        else { Destroy(gameObject); }
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
+
     #endregion
-    
+
     void Start()
     {
         rbody = this.GetComponent<Rigidbody2D>();
         defaultgrav = rbody.gravityScale;
     }
+
     public bool isOnGround()
     {
         bool isTouchingGround = legcollider.IsTouchingLayers(groundLayer);
         this.GetComponent<Animator>().SetBool("isOnGround", isTouchingGround);
         return isTouchingGround;
     }
+
     public void dropBox()
     {
         //GameObject box = Instantiate(pickupBoxPrefab, dropPos.position, Quaternion.identity); //떨구기
 
         GameObject box = Instantiate(pickupBoxPrefab, dropPos.position, Quaternion.identity); //던지기
-        box.GetComponent<Rigidbody2D>().velocity = new Vector2(3*this.transform.localScale.x, 1) * throwPower; //던지기
+        box.GetComponent<Rigidbody2D>().velocity = new Vector2(3 * this.transform.localScale.x, 1) * throwPower; //던지기
 
         box.GetComponent<pickupBox>().init();
         isholdingBox = false;
     }
+
     void Update()
     {
+        //점프~착지 처리
         if (isOnGround())
         {
             coyoteTimeCounter = coyoteTime;
@@ -78,8 +96,10 @@ public class playerScript : MonoBehaviour
         {
             coyoteTimeCounter -= Time.deltaTime;
         }
+
         if (spikehitRecent == false)
         {
+            /*R01ex님의 점프 코드
             if (Input.GetKeyDown(KeyCode.W) && coyoteTimeCounter > 0)
             {
                 jumpedtime = Time.time;
@@ -91,12 +111,46 @@ public class playerScript : MonoBehaviour
             {
                 rbody.AddForce(new Vector2(0, Time.deltaTime * jumpPower));
             }
-            if (Input.GetKeyUp(KeyCode.W) || (longJump == true && Time.time - jumpedtime >= 0.2f))  //0.2f 값은 착지-재점프 까지의 딜레이?
+            if (Input.GetKeyUp(KeyCode.W) || (longJump == true && Time.time - jumpedtime >= 0.2f))
             {
                 longJump = false;
                 coyoteTimeCounter = 0;
             }
+            */
+            if (Input.GetKeyDown(KeyCode.W) && (coyoteTimeCounter > 0 && !longJump))
+            {
+                jumpedtime = Time.time;
+                coyoteTimeCounter = 0f;
+                longJump = true;
+                floatedtime = 0f;
+                isJumpKeyEnd = false;
+            }
+            if (Input.GetKeyUp(KeyCode.W) && !isJumpKeyEnd)
+            {
+                isJumpKeyEnd = true;
+            }
+
+            if (longJump)
+            {
+                floatedtime += Time.deltaTime;
+                float t = floatedtime / maximumJumpingTime;
+                float _velocity = Mathf.Lerp(jumpPower, 0f, t*2);
+                rbody.velocity = new Vector2(rbody.velocity.x, _velocity);
+                //Debug.Log("t = " + t.ToString() + ", velocity = " + _velocity.ToString() + ", floatedTime = " + floatedtime.ToString());
+                
+                if (floatedtime >= minimumJumpingTime)
+                {
+                    if (isJumpKeyEnd || floatedtime >= maximumJumpingTime)  //최대 점프 체공가능 시간이 다되면 컷
+                    {
+                        longJump = false;
+                        isJumpKeyEnd = false;
+                        floatedtime = 0f;
+                        rbody.velocity = new Vector2(rbody.velocity.x, 0f);
+                    } 
+                }
+            }
         }
+
         if (rbody.velocity.y < 0)
         {
             this.GetComponent<Animator>().SetFloat("playerYvelocity", rbody.velocity.y);
@@ -111,7 +165,7 @@ public class playerScript : MonoBehaviour
         //좌-우 이동 + 애니메이션 처리
         if (Input.GetKey(KeyCode.A))
         {
-            this.GetComponent<Animator>().SetBool("isWalking", true);           
+            this.GetComponent<Animator>().SetBool("isWalking", true);
             direction = -1;
         }
         else if (Input.GetKey(KeyCode.D))
@@ -124,12 +178,14 @@ public class playerScript : MonoBehaviour
             this.GetComponent<Animator>().SetBool("isWalking", false);
             direction = 0;
         }
+
         if (direction != 0)
         {
             Turn(direction > 0);
         }
 
 
+        //어빌리티(부스터) 입력처리
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (isAbilityActive == false)
@@ -150,6 +206,7 @@ public class playerScript : MonoBehaviour
                 onAbilityDeactive.Invoke();
             }
         }
+
         if (isAbilityActive == true)
         {
             if (remainingAbilityTime >= 0)
@@ -166,6 +223,7 @@ public class playerScript : MonoBehaviour
             }
         }
 
+        //(박스 들고 있을 경우) 박스 드랍 처리
         if (isholdingBox == true)
         {
             if (Input.GetKeyDown(KeyCode.E))
@@ -173,7 +231,6 @@ public class playerScript : MonoBehaviour
                 dropBox();
             }
         }
-
     }
 
     private void FixedUpdate()
@@ -183,20 +240,26 @@ public class playerScript : MonoBehaviour
             Run();
         }
     }
+
     private void Run()
     {
         float targetSpeed = direction * runMaxSpeed;
 
         #region Calculate AccelRate
+
         float accelRate;
         accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? runAccelAmount : runDeccelAmount;
-        #endregion      
+
+        #endregion
 
         #region Conserve Momentum
-        if (Mathf.Abs(rbody.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(rbody.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f)
+
+        if (Mathf.Abs(rbody.velocity.x) > Mathf.Abs(targetSpeed) &&
+            Mathf.Sign(rbody.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f)
         {
             accelRate = 0;
         }
+
         #endregion
 
         float speedDif = targetSpeed - rbody.velocity.x;
@@ -205,6 +268,7 @@ public class playerScript : MonoBehaviour
 
         rbody.AddForce(movement * Vector2.right, ForceMode2D.Force);
     }
+
     private void Turn(bool isMovingRight)
     {
         if (isMovingRight != isFacingRight && rbody.bodyType != RigidbodyType2D.Static)
