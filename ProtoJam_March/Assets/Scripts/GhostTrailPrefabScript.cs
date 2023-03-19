@@ -16,7 +16,8 @@ public class GhostTrailPrefabScript : MonoBehaviour
         
     }
     public void destroythis()
-    {
+    {  
+        Debug.Log("Destroy clone");
         Destroy(this.gameObject);
     }
 }
