@@ -1232,7 +1232,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.254717, g: 0.2083722, b: 0.08770915, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1511,7 +1511,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 34852895, guid: 2d3f37ff3ebcafb479d7339fa1c0d532, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1666,8 +1666,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ghostTrailPrefab: {fileID: 5792855125268082123, guid: e44a44887aee84947be85f8ff528115e, type: 3}
-  trailSpawnCycleTime: 0.3
-  spriteRenderer: {fileID: 1183930802}
 --- !u!1 &1433813468
 GameObject:
   m_ObjectHideFlags: 0
@@ -1945,7 +1943,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3727046659053734612, guid: 44de75610b56a4645b0ee934d54b9a1e, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3727046659053734612, guid: 44de75610b56a4645b0ee934d54b9a1e, type: 3}
       propertyPath: m_LocalPosition.x
