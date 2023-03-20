@@ -22,7 +22,7 @@ public class pickupRange : MonoBehaviour
         }
         if (playerIsInRange)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetMouseButtonDown(1))
             {
                 GameObject p = this.transform.parent.gameObject;
                 playerScript.Instance.isholdingBox = true;

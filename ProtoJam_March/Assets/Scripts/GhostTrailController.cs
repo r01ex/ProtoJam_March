@@ -7,6 +7,7 @@ public class GhostTrailController : MonoBehaviour
 {
     [SerializeField] GameObject ghostTrailPrefab;
     Coroutine spawner;
+    List<GameObject> traillist = new List<GameObject>();
     private void Start()
     {
         playerScript.Instance.onAbilityActive.AddListener(onPlayerAbilityOn);
@@ -24,6 +25,10 @@ public class GhostTrailController : MonoBehaviour
     void onPlayerAbilityOff()
     {
         StopCoroutine(spawner);
+        foreach(GameObject g in traillist)
+        {
+            Destroy(g);
+        }
     }
     IEnumerator trailSpawner()
     {
@@ -31,6 +36,7 @@ public class GhostTrailController : MonoBehaviour
         {
             yield return new WaitForSeconds(0.1f);
             GameObject g = Instantiate(ghostTrailPrefab, this.transform.position, this.transform.rotation);
+            traillist.Add(g);
             g.transform.localScale = this.transform.localScale;
             g.GetComponent<SpriteRenderer>().sprite = this.gameObject.GetComponent<SpriteRenderer>().sprite;
         }
