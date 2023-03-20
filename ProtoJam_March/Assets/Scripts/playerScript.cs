@@ -76,11 +76,15 @@ public class playerScript : MonoBehaviour
 
     public void dropBox()
     {
-        //GameObject box = Instantiate(pickupBoxPrefab, dropPos.position, Quaternion.identity); //떨구기
+        GameObject box = Instantiate(pickupBoxPrefab, dropPos.position, Quaternion.identity); //떨구기
+        box.GetComponent<pickupBox>().init();
+        isholdingBox = false;
+    }
+    public void throwBox()
+    {
 
         GameObject box = Instantiate(pickupBoxPrefab, dropPos.position, Quaternion.identity); //던지기
-        box.GetComponent<Rigidbody2D>().velocity = new Vector2(3 * this.transform.localScale.x, 1) * throwPower; //던지기
-
+        box.GetComponent<Rigidbody2D>().velocity = new Vector2(1 * this.transform.localScale.x, 1) * throwPower; //던지기
         box.GetComponent<pickupBox>().init();
         isholdingBox = false;
     }
@@ -226,9 +230,13 @@ public class playerScript : MonoBehaviour
         //(박스 들고 있을 경우) 박스 드랍 처리
         if (isholdingBox == true)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetMouseButtonDown(1))
             {
                 dropBox();
+            }
+            else if(Input.GetMouseButtonDown(0))
+            {
+                throwBox();
             }
         }
     }
