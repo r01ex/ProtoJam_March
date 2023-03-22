@@ -138,7 +138,7 @@ public class playerScript : MonoBehaviour
             {
                 floatedtime += Time.deltaTime;
                 float t = floatedtime / maximumJumpingTime;
-                float _velocity = Mathf.Lerp(jumpPower, 0f, t*2);
+                float _velocity = Mathf.Lerp(jumpPower, 1f, t);
                 rbody.velocity = new Vector2(rbody.velocity.x, _velocity);
                 //Debug.Log("t = " + t.ToString() + ", velocity = " + _velocity.ToString() + ", floatedTime = " + floatedtime.ToString());
                 
