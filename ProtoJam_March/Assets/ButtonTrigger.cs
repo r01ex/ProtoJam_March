@@ -25,7 +25,6 @@ public class ButtonTrigger : MonoBehaviour
             if (!isButtonPressed)
             {
                 isButtonPressed = true;
-                
                 OnButtonPressed.Invoke();
                 //버튼 눌렸을 때 버튼 애니메이션
             }
@@ -41,6 +40,7 @@ public class ButtonTrigger : MonoBehaviour
             if (ButtonType == TypeOfButton.Hold && objectWhoPressedButton.Count <= 0)
             {
                 isButtonPressed = false;
+                OnButtonRelease.Invoke();
                 //버튼 풀렸을 때 버튼 애니메이션
             }
         }
