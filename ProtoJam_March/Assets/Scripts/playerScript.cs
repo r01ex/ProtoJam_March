@@ -121,13 +121,16 @@ public class playerScript : MonoBehaviour
                 coyoteTimeCounter = 0;
             }
             */
-            if (Input.GetKeyDown(KeyCode.W) && (coyoteTimeCounter > 0 && !longJump))
+            if (!longJump)
             {
-                jumpedtime = Time.time;
-                coyoteTimeCounter = 0f;
-                longJump = true;
-                floatedtime = 0f;
-                isJumpKeyEnd = false;
+                if (Input.GetKeyDown(KeyCode.W) && isOnGround())
+                {
+                    jumpedtime = Time.time;
+                    coyoteTimeCounter = 0f;
+                    longJump = true;
+                    floatedtime = 0f;
+                    isJumpKeyEnd = false;
+                }
             }
             if (Input.GetKeyUp(KeyCode.W) && !isJumpKeyEnd)
             {
@@ -142,14 +145,15 @@ public class playerScript : MonoBehaviour
                 rbody.velocity = new Vector2(rbody.velocity.x, _velocity);
                 //Debug.Log("t = " + t.ToString() + ", velocity = " + _velocity.ToString() + ", floatedTime = " + floatedtime.ToString());
                 
-                if (floatedtime >= minimumJumpingTime)
+                if (floatedtime > minimumJumpingTime)
                 {
-                    if (isJumpKeyEnd || floatedtime >= maximumJumpingTime)  //최대 점프 체공가능 시간이 다되면 컷
+                    if (isJumpKeyEnd || floatedtime > maximumJumpingTime)  //최대 점프 체공가능 시간이 다되면 컷
                     {
                         longJump = false;
                         isJumpKeyEnd = false;
                         floatedtime = 0f;
                         rbody.velocity = new Vector2(rbody.velocity.x, 0f);
+                        Debug.Log("reset jump");
                     } 
                 }
             }
