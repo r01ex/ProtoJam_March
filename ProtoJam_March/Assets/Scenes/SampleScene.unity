@@ -2808,6 +2808,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PickupBox
       objectReference: {fileID: 0}
+    - target: {fileID: 3727046659053734618, guid: 44de75610b56a4645b0ee934d54b9a1e, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 5b9c3e212dab75f489a59d3d4ad6d2c3, type: 2}
+    - target: {fileID: 3727046659053734619, guid: 44de75610b56a4645b0ee934d54b9a1e, type: 3}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3727046659053734619, guid: 44de75610b56a4645b0ee934d54b9a1e, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 5b9c3e212dab75f489a59d3d4ad6d2c3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44de75610b56a4645b0ee934d54b9a1e, type: 3}
 --- !u!1001 &6100574947522039011
