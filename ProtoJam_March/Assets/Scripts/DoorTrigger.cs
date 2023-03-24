@@ -13,6 +13,9 @@ public class DoorTrigger : MonoBehaviour
     [SerializeField] private bool isLocked = true;
     [SerializeField] private bool isPlayerNearby = false;
 
+    [SerializeField] AudioSource openAudio;
+    [SerializeField] AudioSource closeAudio;
+
     private void Start()
     {
         lockUI.SetActive(true);
@@ -37,6 +40,7 @@ public class DoorTrigger : MonoBehaviour
         // 문이 열리는 연출 넣을 곳
         lockUI.SetActive(false);
         unlockUI.SetActive(true);
+        openAudio.Play();
     }
 
     //문 잠금
@@ -46,6 +50,7 @@ public class DoorTrigger : MonoBehaviour
         //문이 다시 잠기는 연출 넣을 곳
         lockUI.SetActive(true);
         unlockUI.SetActive(false);
+        closeAudio.Play();
     }
     
     //문 들어가기

@@ -7,6 +7,7 @@ public class pickupRange : MonoBehaviour
     bool playerIsInRange = false;
     [SerializeField] GameObject eUIPrefab;
     GameObject eUI;
+    [SerializeField] AudioSource boxpickup;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,7 @@ public class pickupRange : MonoBehaviour
                 playerScript.Instance.isholdingBox = true;
                 Debug.Log("picking up " + p);
                 //sprite change
+                boxpickup.Play();
                 Destroy(p);
             }
         }

@@ -43,6 +43,10 @@ public class playerScript : MonoBehaviour
     public UnityEvent onAbilityActive;
     public UnityEvent onAbilityDeactive;
 
+    [SerializeField] AudioSource walkAudio;
+    [SerializeField] AudioSource throwAudio;
+    [SerializeField] AudioSource dropAudio;
+    [SerializeField] AudioSource abilAudio;
     #region Singleton
 
     public static playerScript Instance { get; private set; }
@@ -76,13 +80,14 @@ public class playerScript : MonoBehaviour
 
     public void dropBox()
     {
+        dropAudio.Play();
         GameObject box = Instantiate(pickupBoxPrefab, dropPos.position, Quaternion.identity); //떨구기
         box.GetComponent<pickupBox>().init();
         isholdingBox = false;
     }
     public void throwBox()
     {
-
+        throwAudio.Play();
         GameObject box = Instantiate(pickupBoxPrefab, dropPos.position, Quaternion.identity); //던지기
         box.GetComponent<Rigidbody2D>().velocity = new Vector2(1 * this.transform.localScale.x, 1) * throwPower; //던지기
         box.GetComponent<pickupBox>().init();
@@ -98,6 +103,7 @@ public class playerScript : MonoBehaviour
         }
         else
         {
+            walkAudio.enabled = false;
             coyoteTimeCounter -= Time.deltaTime;
         }
 
@@ -172,16 +178,33 @@ public class playerScript : MonoBehaviour
         //좌-우 이동 + 애니메이션 처리
         if (Input.GetKey(KeyCode.A))
         {
+            if (isOnGround())
+            {
+                walkAudio.enabled = true;
+            }
+            else
+            {
+                walkAudio.enabled = false;
+            }
             this.GetComponent<Animator>().SetBool("isWalking", true);
             direction = -1;
         }
         else if (Input.GetKey(KeyCode.D))
         {
+            if (isOnGround())
+            {
+                walkAudio.enabled = true;
+            }
+            else
+            {
+                walkAudio.enabled = false;
+            }
             this.GetComponent<Animator>().SetBool("isWalking", true);
             direction = 1;
         }
         else
         {
+            walkAudio.enabled = false;
             this.GetComponent<Animator>().SetBool("isWalking", false);
             direction = 0;
         }
@@ -202,6 +225,8 @@ public class playerScript : MonoBehaviour
                     onAbilityActive.Invoke();
                     //ability bar effect
                     //backgrond, char effect
+                    abilAudio.enabled = true;
+                    abilAudio.Play();
                     isAbilityActive = true;
                 }
             }
@@ -209,6 +234,7 @@ public class playerScript : MonoBehaviour
             {
                 //ability bar effect
                 //backgrond, char effect
+                abilAudio.enabled = false;
                 isAbilityActive = false;
                 onAbilityDeactive.Invoke();
             }

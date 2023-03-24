@@ -7,6 +7,7 @@ public class spike : MonoBehaviour
     [SerializeField] float xmagnitude;
     [SerializeField] float ymagnitude;
     [SerializeField] float stunDuration;
+    [SerializeField] AudioSource spikeaudio;
     private void OnCollisionStay2D(Collision2D collision)
     {
         if(collision.gameObject.tag== "Player" && playerScript.Instance.spikehitRecent == false)
@@ -16,6 +17,7 @@ public class spike : MonoBehaviour
             playerScript.Instance.spikehitRecent = true;
             playerR2d.velocity = new Vector2(-Mathf.Sign(collision.relativeVelocity.x) * xmagnitude, ymagnitude);
             //animation play
+            spikeaudio.Play();
             Invoke("resetPlayer", stunDuration);
         }
     }

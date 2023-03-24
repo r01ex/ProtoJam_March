@@ -8,6 +8,8 @@ public class harpoonHorizontal : MonoBehaviour
     [SerializeField] harpoontype Harpoontype;
     [SerializeField] GameObject square;
     [SerializeField] GameObject triangle;
+    [SerializeField] AudioSource shootAudio;
+    [SerializeField] AudioSource rewindAudio;
     enum harpoontype
     {
         triangle = 1,
@@ -39,5 +41,13 @@ public class harpoonHorizontal : MonoBehaviour
     void Update()
     {
         
+    }
+    public void shootAudioPlay()
+    {
+        shootAudio.Play();
+    }
+    public void rewindAudioPlay()
+    {
+        rewindAudio.Play();
     }
 }
