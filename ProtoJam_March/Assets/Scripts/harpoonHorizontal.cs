@@ -32,10 +32,14 @@ public class harpoonHorizontal : MonoBehaviour
     void onPlayerAbilityOn()
     {
         this.gameObject.GetComponent<Animator>().speed = 0;
+        shootAudio.Pause();
+        rewindAudio.Pause();    
     }
     void onPlayerAbilityOff()
     {
         this.gameObject.GetComponent<Animator>().speed = 1;
+        shootAudio.UnPause();
+        rewindAudio.UnPause();
     }
         // Update is called once per frame
     void Update()

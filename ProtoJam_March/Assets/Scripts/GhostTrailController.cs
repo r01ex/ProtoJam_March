@@ -35,9 +35,10 @@ public class GhostTrailController : MonoBehaviour
         while(true)
         {
             yield return new WaitForSeconds(0.1f);
-            GameObject g = Instantiate(ghostTrailPrefab, this.transform.position, this.transform.rotation);
+            GameObject g = Instantiate(ghostTrailPrefab, this.transform);
+            g.transform.SetParent(null);
             traillist.Add(g);
-            g.transform.localScale = this.transform.localScale;
+            //g.transform.localScale = this.transform.localScale;
             g.GetComponent<SpriteRenderer>().sprite = this.gameObject.GetComponent<SpriteRenderer>().sprite;
         }
     }
