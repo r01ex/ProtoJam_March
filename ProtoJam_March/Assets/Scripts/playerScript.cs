@@ -153,7 +153,6 @@ public class playerScript : MonoBehaviour
                         isJumpKeyEnd = false;
                         floatedtime = 0f;
                         rbody.velocity = new Vector2(rbody.velocity.x, 0f);
-                        Debug.Log("reset jump");
                     } 
                 }
             }
