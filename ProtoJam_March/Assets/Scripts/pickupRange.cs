@@ -19,7 +19,7 @@ public class pickupRange : MonoBehaviour
     {
         if (eUI != null)
         {
-            eUI.transform.position = this.transform.position - new Vector3(0, 0.9f, 0);
+            eUI.transform.position = this.transform.position + new Vector3(0, 0.8f, 0);
         }
         if (playerIsInRange && playerScript.Instance.lockedBoxtarget==this.gameObject)
         {

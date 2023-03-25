@@ -97,7 +97,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 3727046659053734616}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: b99876226f6d787419aa399146d3240c, type: 2}
+  m_Material: {fileID: 6200000, guid: 5b9c3e212dab75f489a59d3d4ad6d2c3, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -126,14 +126,14 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: b99876226f6d787419aa399146d3240c, type: 2}
+  m_Material: {fileID: 6200000, guid: 5b9c3e212dab75f489a59d3d4ad6d2c3, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &3727046659053734615
 MonoBehaviour:
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f668ed43955903c4292116b2a8d1638d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eUIPrefab: {fileID: 548985783683348424, guid: 1453b31b5a773dc4993f337defa42586, type: 3}
+  eUIPrefab: {fileID: 1906379576720202884, guid: cd5afb67daafa894fb42ac5959c6de15, type: 3}
   boxpickup: {fileID: 9181350592086765164}
 --- !u!82 &9181350592086765164
 AudioSource:

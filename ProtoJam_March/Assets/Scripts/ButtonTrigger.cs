@@ -14,6 +14,9 @@ public class ButtonTrigger : MonoBehaviour
     [SerializeField] private List<Transform> objectWhoPressedButton; //버튼을 누르고 있는 객체 리스트
     private bool isButtonPressed = false;   //(내부용)버튼 눌렀는가?
 
+    [SerializeField] Sprite pressedSprite;
+    [SerializeField] Sprite unpressedSprite;
+
     private void Start()
     {
         playerScript.Instance.onAbilityActive.AddListener(onPlayerAbilityOn);
@@ -31,12 +34,15 @@ public class ButtonTrigger : MonoBehaviour
         {
             isButtonPressed = true;
             OnButtonPressed.Invoke();
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = pressedSprite;
             //버튼 눌렸을 때 버튼 애니메이션
         }
         else if(ButtonType == TypeOfButton.Hold && isButtonPressed==true)
         {
             isButtonPressed = false;
             OnButtonRelease.Invoke();
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = unpressedSprite;
+
             //버튼 풀렸을 때 버튼 애니메이션
         }
     }
@@ -52,6 +58,8 @@ public class ButtonTrigger : MonoBehaviour
             {
                 isButtonPressed = true;
                 OnButtonPressed.Invoke();
+                this.gameObject.GetComponent<SpriteRenderer>().sprite = pressedSprite;
+
                 //버튼 눌렸을 때 버튼 애니메이션
             }
         }
@@ -67,6 +75,8 @@ public class ButtonTrigger : MonoBehaviour
             {
                 isButtonPressed = false;
                 OnButtonRelease.Invoke();
+                this.gameObject.GetComponent<SpriteRenderer>().sprite = unpressedSprite;
+
                 //버튼 풀렸을 때 버튼 애니메이션
             }
         }
