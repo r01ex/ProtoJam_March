@@ -41,6 +41,7 @@ public class DoorTrigger : MonoBehaviour
         lockUI.SetActive(false);
         unlockUI.SetActive(true);
         openAudio.Play();
+        this.GetComponent<Animator>().SetBool("isOpen", true);
     }
 
     //문 잠금
@@ -51,6 +52,7 @@ public class DoorTrigger : MonoBehaviour
         lockUI.SetActive(true);
         unlockUI.SetActive(false);
         closeAudio.Play();
+        this.GetComponent<Animator>().SetBool("isOpen", false);
     }
     
     //문 들어가기

@@ -48,6 +48,8 @@ public class playerScript : MonoBehaviour
     [SerializeField] AudioSource dropAudio;
     [SerializeField] AudioSource abilAudio;
 
+    public GameObject boxOverheadUI;
+
     #region Singleton
 
     public static playerScript Instance { get; private set; }
@@ -269,10 +271,14 @@ public class playerScript : MonoBehaviour
             if (Input.GetMouseButtonDown(1))
             {
                 dropBox();
+                boxOverheadUI.SetActive(false);
+                this.gameObject.GetComponent<Animator>().SetBool("isthrowing", true);
             }
             else if (Input.GetMouseButtonDown(0))
             {
                 throwBox();
+                boxOverheadUI.SetActive(false);
+                this.gameObject.GetComponent<Animator>().SetBool("isthrowing", true);
             }
         }
     }
@@ -323,5 +329,14 @@ public class playerScript : MonoBehaviour
 
             isFacingRight = !isFacingRight;
         }
+    }
+
+    public void setIsthrowingOff()
+    {
+        this.gameObject.GetComponent<Animator>().SetBool("isthrowing", false);
+    }
+    public void setIspickingupfalse()
+    {
+        this.gameObject.GetComponent<Animator>().SetBool("ispickingup", false);
     }
 }

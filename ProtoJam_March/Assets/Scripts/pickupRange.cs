@@ -29,8 +29,10 @@ public class pickupRange : MonoBehaviour
                 playerScript.Instance.isholdingBox = true;
                 Debug.Log("picking up " + p);
                 //sprite change
+                playerScript.Instance.boxOverheadUI.SetActive(true);
                 boxpickup.Play();
                 Destroy(p);
+                playerScript.Instance.gameObject.GetComponent<Animator>().SetBool("ispickingup", true);
             }
         }
     }
