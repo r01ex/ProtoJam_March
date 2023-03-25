@@ -49,7 +49,7 @@ public class playerScript : MonoBehaviour
     [SerializeField] AudioSource abilAudio;
 
     public GameObject boxOverheadUI;
-
+    public GameObject lockedBoxtarget;
     #region Singleton
 
     public static playerScript Instance { get; private set; }

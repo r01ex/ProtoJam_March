@@ -21,10 +21,11 @@ public class pickupRange : MonoBehaviour
         {
             eUI.transform.position = this.transform.position - new Vector3(0, 0.9f, 0);
         }
-        if (playerIsInRange)
+        if (playerIsInRange && playerScript.Instance.lockedBoxtarget==this.gameObject)
         {
             if (Input.GetMouseButtonDown(1))
             {
+                playerScript.Instance.lockedBoxtarget = null;
                 GameObject p = this.transform.parent.gameObject;
                 playerScript.Instance.isholdingBox = true;
                 Debug.Log("picking up " + p);
@@ -40,19 +41,24 @@ public class pickupRange : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            if(playerScript.Instance.lockedBoxtarget==this.gameObject)
+            {
+                playerScript.Instance.lockedBoxtarget = null;
+            }
             playerIsInRange = false;
             Destroy(eUI);
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && playerScript.Instance.isholdingBox==false)
+        if (collision.tag == "Player" && playerScript.Instance.isholdingBox==false && playerScript.Instance.lockedBoxtarget==null)
         {
             playerIsInRange = true;
             if (eUI == null)
             {
                 eUI = Instantiate(eUIPrefab, this.transform.position - new Vector3(0, 0.9f, 0), Quaternion.identity);
             }
+            playerScript.Instance.lockedBoxtarget = this.gameObject;
         }
     }
 }
