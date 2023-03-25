@@ -32,12 +32,16 @@ public class harpoonHorizontal : MonoBehaviour
     void onPlayerAbilityOn()
     {
         this.gameObject.GetComponent<Animator>().speed = 0;
+        if (shootAudio == null)
+            return;
         shootAudio.Pause();
         rewindAudio.Pause();    
     }
     void onPlayerAbilityOff()
     {
         this.gameObject.GetComponent<Animator>().speed = 1;
+        if (shootAudio == null)
+            return;
         shootAudio.UnPause();
         rewindAudio.UnPause();
     }
@@ -48,10 +52,14 @@ public class harpoonHorizontal : MonoBehaviour
     }
     public void shootAudioPlay()
     {
+        if (shootAudio == null)
+            return;
         shootAudio.Play();
     }
     public void rewindAudioPlay()
     {
+        if (rewindAudio == null)
+            return;
         rewindAudio.Play();
     }
 }

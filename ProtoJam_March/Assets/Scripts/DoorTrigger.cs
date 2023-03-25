@@ -14,6 +14,11 @@ public class DoorTrigger : MonoBehaviour
     [SerializeField] AudioSource openAudio;
     [SerializeField] AudioSource closeAudio;
 
+    private void Start()
+    {
+        if(!isLocked)
+            this.GetComponent<Animator>().SetBool("isOpen", true);
+    }
 
     private void Update()
     {
