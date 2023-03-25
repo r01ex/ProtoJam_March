@@ -18,8 +18,16 @@ public class DoorTrigger : MonoBehaviour
 
     private void Start()
     {
-        lockUI.SetActive(true);
-        unlockUI.SetActive(false);
+        if (isLocked)
+        {
+            lockUI.SetActive(true);
+            unlockUI.SetActive(false);
+        }
+        else if(!isLocked)
+        {
+            lockUI.SetActive(false);
+            unlockUI.SetActive(true);
+        }
     }
 
     private void Update()
