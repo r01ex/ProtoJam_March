@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class DoorTrigger : MonoBehaviour
 {
-    [SerializeField] private GameObject lockUI;
-    [SerializeField] private GameObject unlockUI;
     [SerializeField] GameObject eUIPrefab;
     GameObject eUI;
     
@@ -16,19 +14,6 @@ public class DoorTrigger : MonoBehaviour
     [SerializeField] AudioSource openAudio;
     [SerializeField] AudioSource closeAudio;
 
-    private void Start()
-    {
-        if (isLocked)
-        {
-            lockUI.SetActive(true);
-            unlockUI.SetActive(false);
-        }
-        else if(!isLocked)
-        {
-            lockUI.SetActive(false);
-            unlockUI.SetActive(true);
-        }
-    }
 
     private void Update()
     {
@@ -46,8 +31,6 @@ public class DoorTrigger : MonoBehaviour
     {
         isLocked = false;
         // 문이 열리는 연출 넣을 곳
-        lockUI.SetActive(false);
-        unlockUI.SetActive(true);
         openAudio.Play();
         this.GetComponent<Animator>().SetBool("isOpen", true);
     }
@@ -57,8 +40,6 @@ public class DoorTrigger : MonoBehaviour
     {
         isLocked = true;
         //문이 다시 잠기는 연출 넣을 곳
-        lockUI.SetActive(true);
-        unlockUI.SetActive(false);
         closeAudio.Play();
         this.GetComponent<Animator>().SetBool("isOpen", false);
     }

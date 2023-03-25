@@ -413,7 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8449e5520c5b0a8438e7dbe8abe758a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Harpoontype: 0
+  Harpoontype: 2
   square: {fileID: 7624593091677103542}
   triangle: {fileID: 7624593092861749535}
   shootAudio: {fileID: 1911246946706828539}
@@ -430,8 +430,8 @@ GameObject:
   - component: {fileID: 7624593091677103540}
   - component: {fileID: 7624593091677103539}
   - component: {fileID: 1869676133183174419}
-  - component: {fileID: 2240918392685904157}
-  m_Layer: 0
+  - component: {fileID: 2067322072}
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -547,7 +547,7 @@ MonoBehaviour:
   xmagnitude: 5
   ymagnitude: 4
   stunDuration: 0.4
---- !u!50 &2240918392685904157
+--- !u!50 &2067322072
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -579,8 +579,8 @@ GameObject:
   - component: {fileID: 7624593092575376817}
   - component: {fileID: 7624593092575376818}
   - component: {fileID: 7624593092575376816}
-  - component: {fileID: 1479139215873101800}
-  m_Layer: 0
+  - component: {fileID: 451856717}
+  m_Layer: 6
   m_Name: harpoonMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -679,7 +679,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 1}
   m_EdgeRadius: 0
---- !u!50 &1479139215873101800
+--- !u!50 &451856717
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -796,7 +796,7 @@ GameObject:
   - component: {fileID: 7624593092861749533}
   - component: {fileID: 7624593092861749532}
   - component: {fileID: 7631071648278493631}
-  - component: {fileID: 5702899116023353861}
+  - component: {fileID: 22626882}
   m_Layer: 0
   m_Name: Triangle
   m_TagString: Untagged
@@ -813,7 +813,7 @@ Transform:
   m_GameObject: {fileID: 7624593092861749535}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 1.648, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_LocalScale: {x: 0.2009, y: 6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7624593091329703800}
@@ -913,7 +913,7 @@ MonoBehaviour:
   xmagnitude: 5
   ymagnitude: 4
   stunDuration: 0.4
---- !u!50 &5702899116023353861
+--- !u!50 &22626882
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
