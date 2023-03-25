@@ -66,8 +66,9 @@ public class DoorTrigger : MonoBehaviour
     {
         if (!isLocked)
         {
-            // 문 들어가기 관련 스크립트 넣을 곳 (당장은 그냥 Destroy)
-            Destroy(playerScript.Instance.gameObject);
+            // 스테이지 클리어 작업
+            GameManager.instance.Do_StageClear();
+            
             // 문으로 들어가거나 다음 스테이지 이동하는 연출 넣을 곳
         }
     }
