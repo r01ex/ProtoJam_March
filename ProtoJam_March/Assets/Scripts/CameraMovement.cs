@@ -7,7 +7,7 @@ public class CameraMovement : MonoBehaviour
 {
     public float cameraFollowSpeed = 3;
     [SerializeField] private Transform destination;
-    [SerializeField] private float cameraSize = 5;
+    [SerializeField] private float cameraSize = 5.5f;
     private Camera mainCamera;
 
     private void Start()
@@ -22,7 +22,7 @@ public class CameraMovement : MonoBehaviour
     }
 
     //카메라 좌표 지정
-    public void SetCameraDestination(Transform _transform, float _cameraSize = 5)
+    public void SetCameraDestination(Transform _transform, float _cameraSize = 5.5f)
     {
         destination = _transform;
         cameraSize = _cameraSize;
