@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public CameraMovement m_mainCamera;
+    public ScrollMovement m_scrollMovement;
     public Intro_FadeInOut m_fadeInOut;
     public GameClearUI m_gameClearUI;
     public Text m_ClearTimeText;
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     [Space(10)]
     public List<Transform> m_listOfStartPos;
     public List<Transform> m_listOfCameraPos;
+    public List<Transform> m_listOfScrollStartPos;
     
     [Space(10)]
     [SerializeField] private int m_curStage = 0;
@@ -74,11 +76,21 @@ public class GameManager : MonoBehaviour
             
             playerScript.Instance.transform.position = m_listOfStartPos[m_curStage].position;
             m_mainCamera.SetCameraDestination(m_listOfCameraPos[m_curStage], m_curStage == 5 ? 7.5f : 5.5f);    //마지막 스테이지 도달 시, 카메라 사이즈 조절
+            m_scrollMovement.transform.position = m_listOfScrollStartPos[m_curStage].position;
+            if (m_curStage == 5)
+            {
+                m_scrollMovement.transform.localScale += new Vector3(0.35f, 0.35f, 0.35f);
+            }
+            m_scrollMovement.ScrollReset();
             
             m_listOfStartPos[m_curStage-1].parent.gameObject.SetActive(false);
             m_listOfStartPos[m_curStage].parent.gameObject.SetActive(true);
             
             playerScript.Instance.gameObject.SetActive(true);
+            if (playerScript.Instance.isAbilityActive == true)
+            {
+                playerScript.Instance.ActivateAbility();
+            }
         }
     }
 
