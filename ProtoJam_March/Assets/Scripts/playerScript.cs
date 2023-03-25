@@ -24,10 +24,10 @@ public class playerScript : MonoBehaviour
     [SerializeField] float coyoteTime;
     [SerializeField] float baseJumpVelocity;
     float jumpedtime; //점프키 누른 타이밍
-    private bool isJumpKeyEnd = false;  //점프키를 땠는가?
-    private float floatedtime;          //공중에 떠있는 시간
-    public float minimumJumpingTime;    //점프시, 최소체공가능시간
-    public float maximumJumpingTime;    //점프시, 최대체공가능시간
+    private bool isJumpKeyEnd = false; //점프키를 땠는가?
+    private float floatedtime; //공중에 떠있는 시간
+    public float minimumJumpingTime; //점프시, 최소체공가능시간
+    public float maximumJumpingTime; //점프시, 최대체공가능시간
     public float coyoteTimeCounter;
 
     public bool spikehitRecent = false;
@@ -47,6 +47,7 @@ public class playerScript : MonoBehaviour
     [SerializeField] AudioSource throwAudio;
     [SerializeField] AudioSource dropAudio;
     [SerializeField] AudioSource abilAudio;
+
     #region Singleton
 
     public static playerScript Instance { get; private set; }
@@ -85,6 +86,7 @@ public class playerScript : MonoBehaviour
         box.GetComponent<pickupBox>().init();
         isholdingBox = false;
     }
+
     public void throwBox()
     {
         throwAudio.Play();
@@ -129,15 +131,17 @@ public class playerScript : MonoBehaviour
             */
             if (!longJump)
             {
-                if (Input.GetKeyDown(KeyCode.W) && isOnGround())
+                if (Input.GetKeyDown(KeyCode.W) && coyoteTimeCounter >= 0f)
                 {
                     jumpedtime = Time.time;
-                    coyoteTimeCounter = 0f;
+                    coyoteTimeCounter = -1f;
                     longJump = true;
                     floatedtime = 0f;
                     isJumpKeyEnd = false;
+                    legcollider.enabled = false;
                 }
             }
+
             if (Input.GetKeyUp(KeyCode.W) && !isJumpKeyEnd)
             {
                 isJumpKeyEnd = true;
@@ -150,16 +154,17 @@ public class playerScript : MonoBehaviour
                 float _velocity = Mathf.Lerp(jumpPower, 1f, t);
                 rbody.velocity = new Vector2(rbody.velocity.x, _velocity);
                 //Debug.Log("t = " + t.ToString() + ", velocity = " + _velocity.ToString() + ", floatedTime = " + floatedtime.ToString());
-                
+
                 if (floatedtime > minimumJumpingTime)
                 {
-                    if (isJumpKeyEnd || floatedtime > maximumJumpingTime)  //최대 점프 체공가능 시간이 다되면 컷
+                    if (isJumpKeyEnd || floatedtime > maximumJumpingTime) //최대 점프 체공가능 시간이 다되면 컷
                     {
                         longJump = false;
                         isJumpKeyEnd = false;
                         floatedtime = 0f;
                         rbody.velocity = new Vector2(rbody.velocity.x, 0f);
-                    } 
+                        legcollider.enabled = true;
+                    }
                 }
             }
         }
@@ -186,6 +191,7 @@ public class playerScript : MonoBehaviour
             {
                 walkAudio.enabled = false;
             }
+
             this.GetComponent<Animator>().SetBool("isWalking", true);
             direction = -1;
         }
@@ -199,6 +205,7 @@ public class playerScript : MonoBehaviour
             {
                 walkAudio.enabled = false;
             }
+
             this.GetComponent<Animator>().SetBool("isWalking", true);
             direction = 1;
         }
@@ -263,7 +270,7 @@ public class playerScript : MonoBehaviour
             {
                 dropBox();
             }
-            else if(Input.GetMouseButtonDown(0))
+            else if (Input.GetMouseButtonDown(0))
             {
                 throwBox();
             }
