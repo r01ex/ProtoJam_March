@@ -89,7 +89,7 @@ public class playerScript : MonoBehaviour
     {
         throwAudio.Play();
         GameObject box = Instantiate(pickupBoxPrefab, dropPos.position, Quaternion.identity); //던지기
-        box.GetComponent<Rigidbody2D>().velocity = new Vector2(1 * this.transform.localScale.x, 1) * throwPower; //던지기
+        box.GetComponent<Rigidbody2D>().velocity = new Vector2(1 * this.transform.localScale.x, 4.5f) * throwPower; //던지기
         box.GetComponent<pickupBox>().init();
         isholdingBox = false;
     }
