@@ -26,7 +26,7 @@ public class ScrollScript : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            //�ǰ�
+            //SmokyOnion -> R01ex :: 이부분의 주석이 유니코드 에러가 난건지 뷁쉙풹으로 되어있습니다.
         }
     }
 }

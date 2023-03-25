@@ -227,26 +227,8 @@ public class playerScript : MonoBehaviour
         //어빌리티(부스터) 입력처리
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (isAbilityActive == false)
-            {
-                if (remainingAbilityTime >= 0)
-                {
-                    onAbilityActive.Invoke();
-                    //ability bar effect
-                    //backgrond, char effect
-                    abilAudio.enabled = true;
-                    abilAudio.Play();
-                    isAbilityActive = true;
-                }
-            }
-            else
-            {
-                //ability bar effect
-                //backgrond, char effect
-                abilAudio.enabled = false;
-                isAbilityActive = false;
-                onAbilityDeactive.Invoke();
-            }
+            //SmokyOnion -> R01ex :: 이 부분 함수로 추출했습니다. 스테이지 넘어갈 때마다 GameManager에서 접근해서 능력 사용인 상태로 넘어가면 해제되도록 하기 위해서...
+            ActivateAbility();
         }
 
         if (isAbilityActive == true)
@@ -328,6 +310,30 @@ public class playerScript : MonoBehaviour
             transform.localScale = scale;
 
             isFacingRight = !isFacingRight;
+        }
+    }
+
+    public void ActivateAbility()
+    {
+        if (isAbilityActive == false)
+        {
+            if (remainingAbilityTime >= 0)
+            {
+                onAbilityActive.Invoke();
+                //ability bar effect
+                //backgrond, char effect
+                abilAudio.enabled = true;
+                abilAudio.Play();
+                isAbilityActive = true;
+            }
+        }
+        else
+        {
+            //ability bar effect
+            //backgrond, char effect
+            abilAudio.enabled = false;
+            isAbilityActive = false;
+            onAbilityDeactive.Invoke();
         }
     }
 
