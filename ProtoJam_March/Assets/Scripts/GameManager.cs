@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         {
             //Destroy(playerScript.Instance.gameObject);
             playerScript.Instance.gameObject.SetActive(false);
-            m_ClearTimeText.text = "Clear Time : " + (int)(m_playedTime / 60) + "m" + (int)(m_playedTime % 60) + "s";
+            m_ClearTimeText.text = "Clear   Time   :   " + ((int)(m_playedTime / 60)).ToString("D2") + "분 " + ((int)(m_playedTime % 60)).ToString("D2") + "초";
             m_gameClearUI.gameObject.SetActive(true);
             m_gameClearUI.Do_ShowUp();
         }
