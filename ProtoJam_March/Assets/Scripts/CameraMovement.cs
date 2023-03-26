@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
@@ -9,10 +10,12 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private Transform destination;
     [SerializeField] private float cameraSize = 5.5f;
     private Camera mainCamera;
+    private DOTweenAnimation shakeAnim;
 
     private void Start()
     {
         mainCamera = GetComponent<Camera>();
+        shakeAnim = GetComponent<DOTweenAnimation>();
     }
 
     private void Update()
@@ -33,5 +36,10 @@ public class CameraMovement : MonoBehaviour
     {
         destination = playerScript.Instance.transform;
         cameraSize = _cameraSize;
+    }
+
+    public void Do_ShakeCamera()
+    {
+        shakeAnim.DOPlay();
     }
 }

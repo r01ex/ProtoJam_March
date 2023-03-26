@@ -1,16 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public CameraMovement m_mainCamera;
+    public DOTweenAnimation m_BGDarkAnim;
+    
+    [Space(10)]
     public ScrollMovement m_scrollMovement;
     public Intro_FadeInOut m_fadeInOut;
+    
+    [Space(10)]
     public GameClearUI m_gameClearUI;
     public GameClearUI m_gameOverUI;
     public Text m_ClearTimeText;
@@ -134,5 +141,15 @@ public class GameManager : MonoBehaviour
         m_gameOverUI.gameObject.SetActive(true);
         m_gameOverTimeText.text = "Play   Time   :   " + ((int)(m_playedTime / 60)).ToString("D2") + "분 " + ((int)(m_playedTime % 60)).ToString("D2") + "초";
         m_gameOverUI.Do_ShowUp();
+    }
+
+    public void Do_AbilityEffectOn()
+    {
+        m_BGDarkAnim.DOPlay();
+        m_mainCamera.Do_ShakeCamera();
+    }
+    public void Do_AbilityEffectOff()
+    {
+        m_BGDarkAnim.DORewind();
     }
 }
