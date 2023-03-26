@@ -330,6 +330,7 @@ public class playerScript : MonoBehaviour
                 abilAudio.enabled = true;
                 abilAudio.Play();
                 isAbilityActive = true;
+                GameManager.instance.Do_AbilityEffectOn();
             }
         }
         else
@@ -339,6 +340,7 @@ public class playerScript : MonoBehaviour
             abilAudio.enabled = false;
             isAbilityActive = false;
             onAbilityDeactive.Invoke();
+            GameManager.instance.Do_AbilityEffectOff();;
         }
     }
 
