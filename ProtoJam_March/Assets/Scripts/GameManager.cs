@@ -12,7 +12,10 @@ public class GameManager : MonoBehaviour
     public ScrollMovement m_scrollMovement;
     public Intro_FadeInOut m_fadeInOut;
     public GameClearUI m_gameClearUI;
+    public GameClearUI m_gameOverUI;
     public Text m_ClearTimeText;
+    public Text m_gameOverTimeText;
+    public ParticleSystem m_DeathEffect;
     
     [Space(10)]
     public List<Transform> m_listOfStartPos;
@@ -115,5 +118,21 @@ public class GameManager : MonoBehaviour
                 yield return null;
             }
         }
+    }
+
+    public void Do_GameOver()
+    {
+        playerScript.Instance.gameObject.SetActive(false);
+        m_DeathEffect.transform.position = playerScript.Instance.transform.position;
+        m_DeathEffect.Play();
+        m_DeathEffect.GetComponent<AudioSource>().Play();
+        Invoke("Do_ShowUpGameOverUI", 2f);
+    }
+
+    private void Do_ShowUpGameOverUI()
+    {
+        m_gameOverUI.gameObject.SetActive(true);
+        m_gameOverTimeText.text = "Play   Time   :   " + ((int)(m_playedTime / 60)).ToString("D2") + "분 " + ((int)(m_playedTime % 60)).ToString("D2") + "초";
+        m_gameOverUI.Do_ShowUp();
     }
 }
