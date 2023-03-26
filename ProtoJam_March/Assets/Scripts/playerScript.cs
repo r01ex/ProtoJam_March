@@ -48,6 +48,7 @@ public class playerScript : MonoBehaviour
     [SerializeField] AudioSource throwAudio;
     [SerializeField] AudioSource dropAudio;
     [SerializeField] AudioSource abilAudio;
+    [SerializeField] AudioSource jumpAudio;
 
     public GameObject boxOverheadUI;
     public GameObject lockedBoxtarget;
@@ -143,6 +144,7 @@ public class playerScript : MonoBehaviour
                     isJumpKeyEnd = false;
                     legcollider.enabled = false;
 
+                    jumpAudio.Play();
                     Do_CreateDust();
                 }
             }
