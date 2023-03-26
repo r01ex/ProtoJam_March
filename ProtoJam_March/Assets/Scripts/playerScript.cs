@@ -10,6 +10,7 @@ public class playerScript : MonoBehaviour
     Rigidbody2D rbody;
     [SerializeField] Collider2D legcollider;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] private ParticleSystem jumpEffect;
 
     [Space(10)] [SerializeField] float runMaxSpeed;
     [SerializeField] float runAccelAmount;
@@ -47,6 +48,7 @@ public class playerScript : MonoBehaviour
     [SerializeField] AudioSource throwAudio;
     [SerializeField] AudioSource dropAudio;
     [SerializeField] AudioSource abilAudio;
+    [SerializeField] AudioSource jumpAudio;
 
     public GameObject boxOverheadUI;
     public GameObject lockedBoxtarget;
@@ -141,6 +143,9 @@ public class playerScript : MonoBehaviour
                     floatedtime = 0f;
                     isJumpKeyEnd = false;
                     legcollider.enabled = false;
+
+                    jumpAudio.Play();
+                    Do_CreateDust();
                 }
             }
 
@@ -344,5 +349,12 @@ public class playerScript : MonoBehaviour
     public void setIspickingupfalse()
     {
         this.gameObject.GetComponent<Animator>().SetBool("ispickingup", false);
+    }
+
+    private void Do_CreateDust()
+    {
+        if (jumpEffect == null)
+            return;
+        jumpEffect.Play();
     }
 }
